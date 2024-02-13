@@ -1,14 +1,7 @@
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
-}
+#![no_std]
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+//#[cfg(target_os = "nintendo_ds_arm7")]
+mod arm7;
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
-}
+//#[cfg(target_os = "nintendo_ds_arm9")]
+mod arm9;
