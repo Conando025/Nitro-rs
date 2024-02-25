@@ -31,3 +31,10 @@ dependencies = [
  "libc-print",
  "libc_alloc",
 ]
+
+[[package]]
+name = "nitro-rs_examples"
+version = "0.0.1"
+dependencies = [
+ "nitro-rs",
+]

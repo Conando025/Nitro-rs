@@ -1,0 +1,10 @@
+[package]
+name = "nitro-rs_examples"
+version = "0.0.1"
+
+[[bin]]
+name = "mvp"
+path = "mpv/main.rs"
+
+[dependencies]
+nitro-rs = { path = "../lib" }
