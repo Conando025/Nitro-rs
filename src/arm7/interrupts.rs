@@ -1,4 +1,7 @@
-use core::{ptr::{read_volatile, write_volatile}, mem::transmute};
+use core::{
+    mem::transmute,
+    ptr::{read_volatile, write_volatile},
+};
 
 /**# Interrupt Master Enable Register
  * When bit 0 is clear, all interrupts are masked.  When it is 1, interrupts will occur if not masked out in REG_IE.
@@ -15,8 +18,8 @@ pub fn enter_critical_section() -> IME {
         let old_ime = read_volatile(REG_IME);
         write_volatile(REG_IME, 0);
         transmute(old_ime)
-    }  
-} 
+    }
+}
 
 pub fn leave_critical_section(old_ime: IME) {
     unsafe {

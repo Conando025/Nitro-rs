@@ -1,12 +1,11 @@
-use core::{
-    mem::MaybeUninit, ptr::copy_nonoverlapping
-};
+use core::{mem::MaybeUninit, ptr::copy_nonoverlapping};
 
 mod interrupts;
-use interrupts::*;
 
 mod firmware;
-use firmware::*;
+use firmware::read_firmware;
+
+mod constants;
 
 #[derive(Clone)]
 #[repr(C)]

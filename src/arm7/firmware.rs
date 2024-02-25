@@ -1,10 +1,14 @@
-use crate::{arm7::enter_critical_section, aux::Flags};
+use crate::{
+    arm7::{
+        interrupts::{enter_critical_section, leave_critical_section},
+        constants::*,
+    },
+    aux::Flags,
+};
 use core::{
     mem::{size_of, MaybeUninit},
     ptr::{read_volatile, write_volatile},
 };
-
-use super::leave_critical_section;
 
 /**
  * # unsafe
@@ -17,7 +21,6 @@ unsafe fn spi_write_address(addr: usize) {
     write_spi(((addr >> 00) & 0xFF) as u8);
 }
 
-#[allow(unreachable_code)]
 pub unsafe fn read_firmware<T: Sized>(addr: usize, destination: *mut T) {
     let old_ime = enter_critical_section();
 
@@ -132,28 +135,6 @@ pub enum FirmwareWriteError {
     Allignment,
     PageWrite,
 }
-
-const FIRMWARE_READ: u8 = 0x03;
-const FIRMWARE_WREN: u8 = 0x06;
-const FIRMWARE_RDSR: u8 = 0x05;
-const FIRMWARE_PW: u8 = 0x0A;
-
-const REG_SPI_DATA: *mut u16 = 0x040001C2 as *mut u16;
-const REG_SPI_CNT: *mut u16 = 0x040001C0 as *mut u16;
-
-//SPI_CNT Flags
-const SPI_DISABLE: u16 = 0;
-const SPI_ENABLE: u16 = 1 << 15;
-const SPI_BYTE_MODE: u16 = 1 << 10;
-const SPI_CONTINUOUS: u16 = 1 << 11;
-const SPI_BUSY: u16 = 1 << 7;
-//TODO: Why are there two names for the same flag???
-const SPI_DEVICE_FIRMWARE: u16 = 1 << 8;
-const SPI_DEVICE_NVRAM: u16 = 1 << 8;
-
-//SPI Result flag data
-const SPI_WORKING: u8 = 1 << 0;
-const SPI_WRITE_ENABLED: u8 = 1 << 1;
 
 #[inline(always)]
 unsafe fn read_spi() -> u8 {
