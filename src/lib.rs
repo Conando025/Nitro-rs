@@ -5,3 +5,5 @@ mod arm7;
 
 //#[cfg(target_os = "nintendo_ds_arm9")]
 mod arm9;
+
+mod aux;
