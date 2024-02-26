@@ -7,9 +7,8 @@ use firmware::read_firmware;
 
 mod constants;
 
-#[derive(Clone)]
-#[repr(C)]
-struct PersonalData {}
+mod system;
+use system::PersonalData;
 
 pub fn initalize_user_settings() {
     unsafe {
