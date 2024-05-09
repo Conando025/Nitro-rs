@@ -1,9 +1,9 @@
 use crate::{
-    arm7::{
+    arm7::constants::*,
+    aux::{
         interrupts::{enter_critical_section, leave_critical_section},
-        constants::*,
+        Flags,
     },
-    aux::Flags,
 };
 use core::{
     mem::{size_of, MaybeUninit},

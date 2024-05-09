@@ -1,3 +1,5 @@
+pub mod interrupts;
+
 pub trait Flags {
     fn check(self, other: Self) -> bool;
 }
