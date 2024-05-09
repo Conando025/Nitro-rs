@@ -12,6 +12,11 @@ const REG_IME: *mut u32 = 0x04000208 as *mut u32;
 #[allow(non_camel_case_types)]
 pub struct IME(u32);
 
+impl IME {
+    const ON: Self = IME(1);
+    const OFF: Self = IME(0);
+}
+
 pub fn enter_critical_section() -> IME {
     //TODO: Double check that this is correct because this should be one atomic instruction shouldn't it?
     unsafe {

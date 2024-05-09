@@ -12,3 +12,10 @@ version = "0.0.1"
 dependencies = [
  "nitro-rs",
 ]
+
+[[package]]
+name = "nitro-rs_tests"
+version = "0.0.1"
+dependencies = [
+ "nitro-rs",
+]

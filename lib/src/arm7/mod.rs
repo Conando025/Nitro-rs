@@ -8,9 +8,9 @@ use firmware::read_firmware;
 mod constants;
 
 mod system;
-use system::PersonalData;
+pub use system::{PersonalData, SystemData, SystemDataRepresentation};
 
-pub fn initalize_user_settings() {
+pub fn initialize_user_settings() {
     unsafe {
         let mut slot0_data: MaybeUninit<PersonalData> = MaybeUninit::uninit();
         let mut slot0_count: MaybeUninit<u8> = MaybeUninit::uninit();
@@ -20,12 +20,12 @@ pub fn initalize_user_settings() {
         let mut slot1_count: MaybeUninit<u8> = MaybeUninit::uninit();
         let mut slot1_crc: MaybeUninit<u8> = MaybeUninit::uninit();
 
-        let mut user_settings_baseaddr: MaybeUninit<usize> = MaybeUninit::uninit();
-        read_firmware(0x20, user_settings_baseaddr.as_mut_ptr());
-        let user_settings_baseaddr = user_settings_baseaddr.assume_init();
+        let mut user_settings_base_addr: MaybeUninit<usize> = MaybeUninit::uninit();
+        read_firmware(0x20, user_settings_base_addr.as_mut_ptr());
+        let user_settings_base_addr = user_settings_base_addr.assume_init();
 
-        let slot0_addr = user_settings_baseaddr * 8;
-        let slot1_addr = user_settings_baseaddr * 8 + 0x100;
+        let slot0_addr = user_settings_base_addr * 8;
+        let slot1_addr = user_settings_base_addr * 8 + 0x100;
 
         read_firmware(slot0_addr + 0x00, slot0_data.as_mut_ptr());
         read_firmware(slot0_addr + 0x70, slot0_count.as_mut_ptr());
@@ -67,6 +67,6 @@ pub fn initalize_user_settings() {
 
 const PERSONAL_DATA_LOCATION: *mut PersonalData = 0x2FFFC80 as *mut PersonalData;
 
-fn swiCRC16<T>(crc: u16, data_addr: &T) -> u8 {
+fn swi_crc16<T>(crc: u16, data_addr: &T) -> u8 {
     todo!()
 }

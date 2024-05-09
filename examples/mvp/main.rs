@@ -9,8 +9,8 @@ mod arm7;
 #[cfg(target_os = "nintendo_ds_arm9")]
 mod arm9;
 
-#[global_allocator]
-static ALLOCATOR: libc_alloc::LibcAlloc = libc_alloc::LibcAlloc;
+//#[global_allocator]
+//static ALLOCATOR: libc_alloc::LibcAlloc = libc_alloc::LibcAlloc;
 
 #[panic_handler]
 fn panic(_info: &core::panic::PanicInfo) -> ! {
